@@ -4,36 +4,24 @@ require_once 'Mahasiswa.php';
 require_once 'MahasiswaMandiri.php';
 require_once 'MahasiswaBidikmisi.php';
 require_once 'MahasiswaPrestasi.php';
+require_once 'koneksi.php'; // Panggil file koneksi OOP yang terpisah
 
-// Trik ekstra jika di kelas Mahasiswa belum ada fungsi getter:
-// Kita tambahkan fungsi refleksi/bantuan lewat kelas anonim atau modifikasi visual.
-// Namun di sini kita akan mengandalkan array data mentah pendamping atau manipulasi property jika dimungkinkan.
-// Agar paling aman tanpa mengubah class Mahasiswa, kita simpan data mentah database ke dalam array pendamping,
-// ATAU jika kamu boleh menambahkan method di class Mahasiswa.php, tambahkan getter untuk nama, nim, semester.
-
-// 1. Konfigurasi Koneksi Database
-$host     = "localhost";
-$username = "root";
-$password = ""; // Sesuaikan dengan password MySQL masing-masing
-$database = "DB_UAS_PBO_TI1D_FawwazFadhlurRahmanAyyasi";
-
-$conn = new mysqli($host, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Koneksi ke database gagal: " . $conn->connect_error);
-}
+// 1. Ambil koneksi database secara OOP lewat Class Koneksi
+$db = new Koneksi();
+$conn = $db->getKoneksi(); 
 
 // 2. Ambil Data dari Database
 $query  = "SELECT * FROM tabel_mahasiswa";
 $result = $conn->query($query);
 
+// Array penampung objek berdasarkan kategori pembiayaan
 $listMandiri   = [];
 $listBidikmisi = [];
 $listPrestasi  = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Kita bungkus objek PBO beserta data mentahnya agar bisa dipanggil di HTML tanpa melanggar enkapsulasi protected
+        // Bungkus objek PBO beserta data mentahnya agar bisa dipanggil di HTML tanpa melanggar enkapsulasi protected
         $dataMhs = [
             'objek' => null,
             'nim'   => $row['nim'],
@@ -62,7 +50,7 @@ if ($result->num_rows > 0) {
         }
     }
 }
-$conn->close();
+$db->tutupKoneksi(); // Tutup koneksi via method dari class Koneksi
 ?>
 
 <!DOCTYPE html>
