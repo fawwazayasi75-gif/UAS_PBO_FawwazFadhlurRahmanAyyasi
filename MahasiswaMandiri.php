@@ -13,10 +13,13 @@ class MahasiswaMandiri extends Mahasiswa {
         $this->namaWali = $namaWali;
     }
 
-    // Implementasi metode abstrak dari kelas induk
+    /**
+     * TAHAP 5: Overriding hitungTagihanSemester()
+     * Skema Mandiri: tarifUktNominal + 100000 (biaya operasional flat)
+     */
     public function hitungTagihanSemester() {
-        // Skema Mandiri: Tagihan adalah tarif UKT penuh
-        return $this->tarifUktNominal;
+        $biayaOperasional = 100000;
+        return $this->tarifUktNominal + $biayaOperasional;
     }
 
     public function tampilkanSpesifikasiAkademik() {

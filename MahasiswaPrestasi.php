@@ -13,10 +13,12 @@ class MahasiswaPrestasi extends Mahasiswa {
         $this->minimalIpkSyarat = $minimalIpkSyarat;
     }
 
-    // Implementasi metode abstrak dari kelas induk
+    /**
+     * TAHAP 5: Overriding hitungTagihanSemester()
+     * Skema Prestasi: Mendapat potongan 75%, sehingga cukup membayar 25% (tarifUktNominal * 0.25)
+     */
     public function hitungTagihanSemester() {
-        // Skema Prestasi: Tagihan berupa tarif nominal awal dikurangi potongan/diskon (bisa disesuaikan logikanya)
-        return $this->tarifUktNominal; 
+        return $this->tarifUktNominal * 0.25;
     }
 
     public function tampilkanSpesifikasiAkademik() {

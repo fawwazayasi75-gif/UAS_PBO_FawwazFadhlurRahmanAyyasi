@@ -13,9 +13,11 @@ class MahasiswaBidikmisi extends Mahasiswa {
         $this->danaSakuSubsidi = $danaSakuSubsidi;
     }
 
-    // Implementasi metode abstrak dari kelas induk
+    /**
+     * TAHAP 5: Overriding hitungTagihanSemester()
+     * Skema Bidikmisi: Digratiskan penuh (Total Tagihan = 0) karena ditanggung negara
+     */
     public function hitungTagihanSemester() {
-        // Skema Bidikmisi: Biasanya UKT ditanggung penuh/0 rupiah oleh pemerintah
         return 0;
     }
 
